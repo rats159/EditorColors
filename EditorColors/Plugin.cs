@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace EditorColors;
 
-[BepInPlugin(GUID, "Editor Colors", "1.0.0")]
+[BepInPlugin(GUID, "Editor Colors", "1.0.1")]
 public class Root : BaseUnityPlugin
 {
     private const string GUID = "editor_colors";

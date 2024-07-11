@@ -16,11 +16,11 @@ public class ColorGroup
         IMPORT = new("^(import|(from.*import)).*"),
         STRING = new("(['\"])(.*?)\\1"),
         KEYWORD = new("\\b(in|for|while|def|if|else|elif|return|pass|break|continue|and|or|not)\\b"),
-        FUNCTION_CALL = new("\\b[a-z,A-Z]\\w*(?=\\()"),
+        FUNCTION_CALL = new("\\b[a-zA-Z]\\w*(?=\\()"),
         CONSTANT = new("\\b(True|False|None|North|East|South|West|Entities|Items|Grounds|Unlocks)|(?<=[a-zA-Z]\\.)\\w*"),
         NUMBER = new("\\b(\\d*\\.)?\\d+\\b"),
         BRACKETS = new("[\\[\\]{}()]"),
-        OPERATORS = new("[+\\-*%/=!:><]");
+        OPERATORS = new("[+\\-*%/=!:><,]");
 }
 
 internal class ThemeManager
