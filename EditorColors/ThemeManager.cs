@@ -20,7 +20,7 @@ public class ColorGroup
         CONSTANT = new("\\b(True|False|None|North|East|South|West|Entities|Items|Grounds|Unlocks)|(?<=[a-zA-Z]\\.)\\w*"),
         NUMBER = new("\\b(\\d*\\.)?\\d+\\b"),
         BRACKETS = new("[\\[\\]{}()]"),
-        OPERATORS = new("[+\\-*%/=!:><,]");
+        OPERATORS = new("[+\\-*%/=!:><,\\.]");
 }
 
 internal class ThemeManager
