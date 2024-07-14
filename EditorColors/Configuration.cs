@@ -59,13 +59,13 @@ internal class Configuration
     {
         Settings[v].SettingChanged += (caller, args) =>
         {
-            Root.instance.UpdateWindows();
+            Root.Instance.UpdateWindows();
         };
     }
 
     private static ConfigEntry<T> Bind<T>(string group, string name, T defaultVal, string desc)
     {
-        return Root.instance.Config.Bind(group, name, defaultVal, desc);
+        return Root.Instance.Config.Bind(group, name, defaultVal, desc);
     }
 
     private static void MakeSyntaxCallback(string name, Regex re)

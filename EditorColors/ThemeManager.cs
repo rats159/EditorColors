@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Globalization;
 
 namespace EditorColors;
 
@@ -40,7 +37,7 @@ internal class ThemeManager
 
     public static List<KeyValuePair<Regex, string>> Colors()
     {
-        return colors.ToList();
+        return [.. colors];
     }
     
     public static void SetColor(Regex group, string hexCode)
@@ -52,14 +49,14 @@ internal class ThemeManager
     {
         if (hex.Length != 7)
         {
-            return new Color(0, 0, 0);
+            return new Color32(0, 0, 0, 0);
         }
 
-        byte r = byte.Parse(hex.Substring(1, 2), System.Globalization.NumberStyles.HexNumber);
-        byte g = byte.Parse(hex.Substring(3, 2), System.Globalization.NumberStyles.HexNumber);
-        byte b = byte.Parse(hex.Substring(5, 2), System.Globalization.NumberStyles.HexNumber);
+        byte r = byte.Parse(hex.Substring(1, 2), NumberStyles.HexNumber);
+        byte g = byte.Parse(hex.Substring(3, 2), NumberStyles.HexNumber);
+        byte b = byte.Parse(hex.Substring(5, 2), NumberStyles.HexNumber);
 
-        return new Color(r / 256f, g / 256f, b / 256f, 1f);
+        return new Color32(r, g, b, 255);
     }
 
     public static void UpdateWindows(CodeWindow[] windows)
