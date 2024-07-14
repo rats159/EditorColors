@@ -13,20 +13,20 @@ internal class Configuration
     private static readonly Dictionary<string, ConfigEntry<string>> Settings = [];
     public static void Init()
     {
-        Settings["CommentColor"] = Bind("Syntax", "CommentColor", "#ffffff", "The color of comments");
-        Settings["ImportColor"] = Bind("Syntax", "ImportColor", "#ffffff", "The color of imports");
-        Settings["StringColor"] = Bind("Syntax", "StringColor", "#ffffff", "The color of strings");
-        Settings["KeywordColor"] = Bind("Syntax", "KeywordColor", "#ffffff", "The color of keywords");
-        Settings["FunctionColor"] = Bind("Syntax", "FunctionColor", "#ffffff", "The color of functions");
-        Settings["ConstantColor"] = Bind("Syntax", "ConstantColor", "#ffffff", "The color of constants");
-        Settings["NumberColor"] = Bind("Syntax", "NumberColor", "#ffffff", "The color of numbers");
+        Settings["CommentColor"] = Bind("Syntax", "CommentColor", "#999999", "The color of comments");
+        Settings["ImportColor"] = Bind("Syntax", "ImportColor", "#999999", "The color of imports");
+        Settings["StringColor"] = Bind("Syntax", "StringColor", "#cc8a43", "The color of strings");
+        Settings["KeywordColor"] = Bind("Syntax", "KeywordColor", "#e3a63d", "The color of keywords");
+        Settings["FunctionColor"] = Bind("Syntax", "FunctionColor", "#ffecbd", "The color of functions");
+        Settings["ConstantColor"] = Bind("Syntax", "ConstantColor", "#efc678", "The color of constants");
+        Settings["NumberColor"] = Bind("Syntax", "NumberColor", "#efc678", "The color of numbers");
         Settings["BracketColor"] = Bind("Syntax", "BracketColor", "#ffffff", "The color of brackets");
         Settings["OperatorColor"] = Bind("Syntax", "OperatorColor", "#ffffff", "The color of operators");
         SetupSyntaxCallbacks();
 
-        Settings["WindowBorderColor"] = Bind("Window", "BorderColor", "#000000", "The color of the window border");
-        Settings["CodeBackgroundColor"] = Bind("Window", "CodeBackgroundColor", "#000000", "The color of the code background");
-        Settings["BreakpointBackgroundColor"] = Bind("Window", "BreakpointBackgroundColor", "#000000", "The color of the breakpoint background");
+        Settings["WindowBorderColor"] = Bind("Window", "BorderColor", "#565656", "The color of the window border");
+        Settings["CodeBackgroundColor"] = Bind("Window", "CodeBackgroundColor", "#2E2E2E", "The color of the code background");
+        Settings["BreakpointBackgroundColor"] = Bind("Window", "BreakpointBackgroundColor", "#2E2E2E", "The color of the breakpoint background");
         SetupWindowCallbacks();
     }
 
