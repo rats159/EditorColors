@@ -3,6 +3,7 @@ using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Globalization;
+using System.Linq;
 
 namespace EditorColors;
 
@@ -35,9 +36,9 @@ internal class ThemeManager
         [ColorGroup.OPERATORS] = Configuration.Get("OperatorColor")
     };
 
-    public static List<KeyValuePair<Regex, string>> Colors()
+    public static List<(Regex, string)> Colors()
     {
-        return [.. colors];
+        return colors.Select(entry=>(entry.Key,entry.Value)).ToList();
     }
     
     public static void SetColor(Regex group, string hexCode)

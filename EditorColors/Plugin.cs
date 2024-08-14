@@ -1,15 +1,10 @@
-﻿using BepInEx.Logging;
-using BepInEx;
+﻿using BepInEx;
 using HarmonyLib;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace EditorColors;
 
-[BepInPlugin(GUID, "Editor Colors", "1.0.3")]
+[BepInPlugin(GUID, "Editor Colors", "1.0.4")]
 public class Root : BaseUnityPlugin
 {
     private const string GUID = "dev.rats159.tfwr.editor_colors";
