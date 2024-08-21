@@ -60,18 +60,40 @@ internal class ThemeManager
         return new Color32(r, g, b, 255);
     }
 
-    public static void UpdateWindows(CodeWindow[] windows)
+    public static void UpdateCodeWindows(CodeWindow[] windows)
     {
         foreach (CodeWindow window in windows)
         {
-            UpdateWindow(window);
+            UpdateCodeWindow(window);
         }
     }
 
-    public static void UpdateWindow(CodeWindow window)
+    public static void UpdateDocsWindows(DocsWindow[] windows)
+    {
+        Root.GetLogger().LogInfo(windows);
+        foreach (DocsWindow window in windows)
+        {
+            UpdateDocsWindow(window);
+        }
+    }
+
+    public static void UpdateDocsWindow(DocsWindow window)
+    {
+        window.GetComponent<Image>().color = ToColor(Configuration.Get("DocsWindowBorderColor"));
+
+        var scrollView = window.transform.Find("Scroll View");
+        scrollView.GetComponent<Image>().color = ToColor(Configuration.Get("DocsBackgroundColor"));
+
+        var vertical = scrollView.Find("Scrollbar Vertical");
+        vertical.GetComponent<Image>().color = ToColor(Configuration.Get("DocsScrollBackgroundColor"));
+
+        vertical.Find("Sliding Area/Handle").GetComponent<Image>().color = ToColor(Configuration.Get("DocsScrollbarColor"));
+    }
+
+    public static void UpdateCodeWindow(CodeWindow window)
     {
 
-        window.GetComponent<Image>().color = ToColor(Configuration.Get("WindowBorderColor"));
+        window.GetComponent<Image>().color = ToColor(Configuration.Get("CodeWindowBorderColor"));
         window.transform.Find("InputField").GetComponent<Image>().color = ToColor(Configuration.Get("CodeBackgroundColor"));
         window.transform.Find("BreakPointPanel").GetComponent<Image>().color = ToColor(Configuration.Get("BreakpointBackgroundColor"));
     }

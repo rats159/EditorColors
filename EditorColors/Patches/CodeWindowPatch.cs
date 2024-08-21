@@ -12,6 +12,6 @@ internal class CodeWindowPatch
 {
     public static void Postfix(ref CodeWindow __instance)
     {
-        ThemeManager.UpdateWindow(__instance);
+        ThemeManager.UpdateCodeWindow(__instance);
     }
 }

@@ -24,10 +24,16 @@ internal class Configuration
         Settings["OperatorColor"] = Bind("Syntax", "OperatorColor", "#ffffff", "The color of operators");
         SetupSyntaxCallbacks();
 
-        Settings["WindowBorderColor"] = Bind("Window", "BorderColor", "#565656", "The color of the window border");
+        Settings["CodeWindowBorderColor"] = Bind("Window", "BorderColor", "#565656", "The color of the code window border");
         Settings["CodeBackgroundColor"] = Bind("Window", "CodeBackgroundColor", "#2E2E2E", "The color of the code background");
         Settings["BreakpointBackgroundColor"] = Bind("Window", "BreakpointBackgroundColor", "#2E2E2E", "The color of the breakpoint background");
-        SetupWindowCallbacks();
+        SetupCodeWindowCallbacks();
+
+        Settings["DocsWindowBorderColor"] = Bind("Docs", "DocsBorderColor", "#565656", "The color of the docs window border");
+        Settings["DocsBackgroundColor"] = Bind("Docs","DocsBackgroundColor", "#2E2E2E","The color of the docs window background");
+        Settings["DocsScrollBackgroundColor"] = Bind("Docs", "DocsScrollBackgroundColor", "#2B2B2B", "The color of the docs window scroll background");
+        Settings["DocsScrollbarColor"] = Bind("Docs", "DocsScrollbarColor", "#414141", "The color of the docs window scrollbar");
+        SetupDocsWindowCallbacks();
 
         Settings["SkyColor"] = Bind("Environment", "SkyColor", "#85AFDB", "The color of the sky");
         Settings["SunColor"] = Bind("Environment", "SunColor", "#FFE292", "The color of the sunlight");
@@ -65,19 +71,25 @@ internal class Configuration
         };
     }
 
-    public static void SetupWindowCallbacks()
+    public static void SetupCodeWindowCallbacks()
     {
-        MakeWindowCallback("WindowBorderColor");
+        MakeWindowCallback("CodeWindowBorderColor");
         MakeWindowCallback("CodeBackgroundColor");
         MakeWindowCallback("BreakpointBackgroundColor");
     }
 
+    public static void SetupDocsWindowCallbacks()
+    {
+        MakeWindowCallback("DocsWindowBorderColor");
+        MakeWindowCallback("DocsBackgroundColor");
+        MakeWindowCallback("DocsScrollBackgroundColor");
+        MakeWindowCallback("DocsScrollbarColor");
+    }
+
     private static void MakeWindowCallback(string v)
     {
-        Settings[v].SettingChanged += (caller, args) =>
-        {
-            Root.Instance.UpdateWindows();
-        };
+        Settings[v].SettingChanged += (caller, args) => Root.Instance.UpdateWindows();
+        
     }
 
     private static ConfigEntry<T> Bind<T>(string group, string name, T defaultVal, string desc)
