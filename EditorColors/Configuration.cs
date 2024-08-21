@@ -28,6 +28,10 @@ internal class Configuration
         Settings["CodeBackgroundColor"] = Bind("Window", "CodeBackgroundColor", "#2E2E2E", "The color of the code background");
         Settings["BreakpointBackgroundColor"] = Bind("Window", "BreakpointBackgroundColor", "#2E2E2E", "The color of the breakpoint background");
         SetupWindowCallbacks();
+
+        Settings["SkyColor"] = Bind("Environment", "SkyColor", "#85AFDB", "The color of the sky");
+        Settings["SunColor"] = Bind("Environment", "SunColor", "#FFE292", "The color of the sunlight");
+        SetupEnvironmentCallbacks();
     }
 
     public static string Get(string key)
@@ -46,6 +50,19 @@ internal class Configuration
         MakeSyntaxCallback("NumberColor", ColorGroup.NUMBER);
         MakeSyntaxCallback("BracketColor", ColorGroup.BRACKETS);
         MakeSyntaxCallback("OperatorColor", ColorGroup.OPERATORS);
+    }
+
+    public static void SetupEnvironmentCallbacks()
+    {
+        Settings["SkyColor"].SettingChanged += (caller, args) =>
+        {
+            Root.SetSkyColor(Settings["SkyColor"].Value);
+        };
+
+        Settings["SunColor"].SettingChanged += (caller, args) =>
+        {
+            Root.SetSunColor(Settings["SunColor"].Value);
+        };
     }
 
     public static void SetupWindowCallbacks()

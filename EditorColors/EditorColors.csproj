@@ -48,6 +48,7 @@
     <Compile Include="Configuration.cs" />
     <Compile Include="Patches\CodeUtilitiesPatch.cs" />
     <Compile Include="Patches\CodeWindowPatch.cs" />
+    <Compile Include="Patches\SaverPatch.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ThemeManager.cs" />
