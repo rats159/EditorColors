@@ -22,6 +22,7 @@ internal class Configuration
         Settings["NumberColor"] = Bind("Syntax", "NumberColor", "#efc678", "The color of numbers");
         Settings["BracketColor"] = Bind("Syntax", "BracketColor", "#ffffff", "The color of brackets");
         Settings["OperatorColor"] = Bind("Syntax", "OperatorColor", "#ffffff", "The color of operators");
+        Settings["IdentifierColor"] = Bind("Syntax", "IdentifierColor", "#ffffff", "The color of identifiers. This has the lowest precedence.");
         SetupSyntaxCallbacks();
 
         Settings["CodeWindowBorderColor"] = Bind("Window", "BorderColor", "#565656", "The color of the code window border");
@@ -56,6 +57,7 @@ internal class Configuration
         MakeSyntaxCallback("NumberColor", ColorGroup.NUMBER);
         MakeSyntaxCallback("BracketColor", ColorGroup.BRACKETS);
         MakeSyntaxCallback("OperatorColor", ColorGroup.OPERATORS);
+        MakeSyntaxCallback("IdentifierColor", ColorGroup.IDENTIFIERS);
     }
 
     public static void SetupEnvironmentCallbacks()

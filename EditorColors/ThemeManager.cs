@@ -18,7 +18,8 @@ public class ColorGroup
         CONSTANT = new("\\b(True|False|None|North|East|South|West|Entities|Items|Grounds|Unlocks)|(?<=[a-zA-Z]\\.)\\w*"),
         NUMBER = new("\\b(\\d*\\.)?\\d+\\b"),
         BRACKETS = new("[\\[\\]{}()]"),
-        OPERATORS = new("[+\\-*%/=!:><,\\.]");
+        OPERATORS = new("[+\\-*%/=!:><,\\.]"), 
+        IDENTIFIERS = new("\\b[a-zA-Z]\\w*\\b");
 }
 
 internal class ThemeManager
@@ -33,7 +34,8 @@ internal class ThemeManager
         [ColorGroup.CONSTANT] = Configuration.Get("ConstantColor"),
         [ColorGroup.NUMBER] = Configuration.Get("NumberColor"),
         [ColorGroup.BRACKETS] = Configuration.Get("BracketColor"),
-        [ColorGroup.OPERATORS] = Configuration.Get("OperatorColor")
+        [ColorGroup.OPERATORS] = Configuration.Get("OperatorColor"),
+        [ColorGroup.IDENTIFIERS] = Configuration.Get("IdentifierColor")
     };
 
     public static List<(Regex, string)> Colors()

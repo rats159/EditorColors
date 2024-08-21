@@ -8,7 +8,7 @@ using UnityEngine.Experimental.GlobalIllumination;
 
 namespace EditorColors;
 
-[BepInPlugin(GUID, "Editor Colors", "1.2.0")]
+[BepInPlugin(GUID, "Editor Colors", "1.3.0")]
 public class Root : BaseUnityPlugin
 {
     private const string GUID = "dev.rats159.tfwr.editor_colors";
