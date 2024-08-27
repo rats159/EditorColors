@@ -15,7 +15,7 @@ public class ColorGroup
         STRING = new("(['\"])(.*?)\\1"),
         KEYWORD = new("\\b(in|for|while|def|if|else|elif|return|pass|break|continue|and|or|not)\\b"),
         FUNCTION_CALL = new("\\b[a-zA-Z]\\w*(?=\\()"),
-        CONSTANT = new("\\b(True|False|None|North|East|South|West|Entities|Items|Grounds|Unlocks)|(?<=[a-zA-Z]\\.)\\w*"),
+        CONSTANT = new("\\b(True|False|None|North|East|South|West|Entities|Items|Grounds|Unlocks|Hats)|(?<=[a-zA-Z]\\.)\\w*"),
         NUMBER = new("\\b(\\d*\\.)?\\d+\\b"),
         BRACKETS = new("[\\[\\]{}()]"),
         OPERATORS = new("[+\\-*%/=!:><,\\.]"), 
