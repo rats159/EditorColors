@@ -8,7 +8,7 @@ using UnityEngine;
 namespace EditorColors.Patches;
 
 [HarmonyPatch(typeof(CodeUtilities), nameof(CodeUtilities.SyntaxColor))]
-internal class CodeUtitlitiesPatch
+internal class CodeUtilitiesPatch
 {
     public static bool Prefix(ref string __result, string code)
     {
@@ -38,7 +38,7 @@ internal class CodeUtitlitiesPatch
         foreach ((Capture cap, string color) in list2)
         {
             text = text.Insert(cap.Index + cap.Length, "</color>");
-            text = text.Insert(cap.Index, string.Format("<color={0}>", color));
+            text = text.Insert(cap.Index, $"<color={color}>");
         }
 
         __result = text;

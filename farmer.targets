@@ -1,6 +1,6 @@
 <Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <PropertyGroup>
-        <TFWR>D:\SteamLibrary\steamapps\common\The Farmer Was Replaced</TFWR>
+        <TFWR>H:\SteamLibrary\steamapps\common\The Farmer Was Replaced</TFWR>
         <Assemblies>$(TFWR)\TheFarmerWasReplaced_Data\Managed</Assemblies>
         <BepInEx>$(TFWR)\BepInEx\core</BepInEx>
         <OutputFolder Condition="'$(OutputFolder)' == ''">BepInEx\plugins</OutputFolder>

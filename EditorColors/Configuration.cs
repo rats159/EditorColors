@@ -8,89 +8,89 @@ using System.Threading.Tasks;
 
 namespace EditorColors;
 
-internal class Configuration
+internal static class Configuration
 {
     private static readonly Dictionary<string, ConfigEntry<string>> Settings = [];
     public static void Init()
     {
-        Settings["CommentColor"] = Bind("Syntax", "CommentColor", "#999999", "The color of comments");
-        Settings["ImportColor"] = Bind("Syntax", "ImportColor", "#999999", "The color of imports");
-        Settings["StringColor"] = Bind("Syntax", "StringColor", "#cc8a43", "The color of strings");
-        Settings["KeywordColor"] = Bind("Syntax", "KeywordColor", "#e3a63d", "The color of keywords");
-        Settings["FunctionColor"] = Bind("Syntax", "FunctionColor", "#ffecbd", "The color of functions");
-        Settings["ConstantColor"] = Bind("Syntax", "ConstantColor", "#efc678", "The color of constants");
-        Settings["NumberColor"] = Bind("Syntax", "NumberColor", "#efc678", "The color of numbers");
-        Settings["BracketColor"] = Bind("Syntax", "BracketColor", "#ffffff", "The color of brackets");
-        Settings["OperatorColor"] = Bind("Syntax", "OperatorColor", "#ffffff", "The color of operators");
-        Settings["IdentifierColor"] = Bind("Syntax", "IdentifierColor", "#ffffff", "The color of identifiers. This has the lowest precedence.");
-        SetupSyntaxCallbacks();
+        Configuration.Settings["CommentColor"] = Configuration.Bind("Syntax", "CommentColor", "#999999", "The color of comments");
+        Configuration.Settings["ImportColor"] = Configuration.Bind("Syntax", "ImportColor", "#999999", "The color of imports");
+        Configuration.Settings["StringColor"] = Configuration.Bind("Syntax", "StringColor", "#cc8a43", "The color of strings");
+        Configuration.Settings["KeywordColor"] = Configuration.Bind("Syntax", "KeywordColor", "#e3a63d", "The color of keywords");
+        Configuration.Settings["FunctionColor"] = Configuration.Bind("Syntax", "FunctionColor", "#ffecbd", "The color of functions");
+        Configuration.Settings["ConstantColor"] = Configuration.Bind("Syntax", "ConstantColor", "#efc678", "The color of constants");
+        Configuration.Settings["NumberColor"] = Configuration.Bind("Syntax", "NumberColor", "#efc678", "The color of numbers");
+        Configuration.Settings["BracketColor"] = Configuration.Bind("Syntax", "BracketColor", "#ffffff", "The color of brackets");
+        Configuration.Settings["OperatorColor"] = Configuration.Bind("Syntax", "OperatorColor", "#ffffff", "The color of operators");
+        Configuration.Settings["IdentifierColor"] = Configuration.Bind("Syntax", "IdentifierColor", "#ffffff", "The color of identifiers. This has the lowest precedence.");
+        Configuration.SetupSyntaxCallbacks();
 
-        Settings["CodeWindowBorderColor"] = Bind("Window", "BorderColor", "#565656", "The color of the code window border");
-        Settings["CodeBackgroundColor"] = Bind("Window", "CodeBackgroundColor", "#2E2E2E", "The color of the code background");
-        Settings["BreakpointBackgroundColor"] = Bind("Window", "BreakpointBackgroundColor", "#2E2E2E", "The color of the breakpoint background");
-        SetupCodeWindowCallbacks();
+        Configuration.Settings["CodeWindowBorderColor"] = Configuration.Bind("Window", "BorderColor", "#565656", "The color of the code window border");
+        Configuration.Settings["CodeBackgroundColor"] = Configuration.Bind("Window", "CodeBackgroundColor", "#2E2E2E", "The color of the code background");
+        Configuration.Settings["BreakpointBackgroundColor"] = Configuration.Bind("Window", "BreakpointBackgroundColor", "#2E2E2E", "The color of the breakpoint background");
+        Configuration.SetupCodeWindowCallbacks();
 
-        Settings["DocsWindowBorderColor"] = Bind("Docs", "DocsBorderColor", "#565656", "The color of the docs window border");
-        Settings["DocsBackgroundColor"] = Bind("Docs","DocsBackgroundColor", "#2E2E2E","The color of the docs window background");
-        Settings["DocsScrollBackgroundColor"] = Bind("Docs", "DocsScrollBackgroundColor", "#2B2B2B", "The color of the docs window scroll background");
-        Settings["DocsScrollbarColor"] = Bind("Docs", "DocsScrollbarColor", "#414141", "The color of the docs window scrollbar");
-        SetupDocsWindowCallbacks();
+        Configuration.Settings["DocsWindowBorderColor"] = Configuration.Bind("Docs", "DocsBorderColor", "#565656", "The color of the docs window border");
+        Configuration.Settings["DocsBackgroundColor"] = Configuration.Bind("Docs","DocsBackgroundColor", "#2E2E2E","The color of the docs window background");
+        Configuration.Settings["DocsScrollBackgroundColor"] = Configuration.Bind("Docs", "DocsScrollBackgroundColor", "#2B2B2B", "The color of the docs window scroll background");
+        Configuration.Settings["DocsScrollbarColor"] = Configuration.Bind("Docs", "DocsScrollbarColor", "#414141", "The color of the docs window scrollbar");
+        Configuration.SetupDocsWindowCallbacks();
 
-        Settings["SkyColor"] = Bind("Environment", "SkyColor", "#85AFDB", "The color of the sky");
-        Settings["SunColor"] = Bind("Environment", "SunColor", "#FFE292", "The color of the sunlight");
-        SetupEnvironmentCallbacks();
+        Configuration.Settings["SkyColor"] = Configuration.Bind("Environment", "SkyColor", "#85AFDB", "The color of the sky");
+        Configuration.Settings["SunColor"] = Configuration.Bind("Environment", "SunColor", "#FFE292", "The color of the sunlight");
+        Configuration.SetupEnvironmentCallbacks();
     }
 
     public static string Get(string key)
     {
-        return Settings[key].Value;
+        return Configuration.Settings[key].Value;
     }
 
-    public static void SetupSyntaxCallbacks()
+    private static void SetupSyntaxCallbacks()
     {
-        MakeSyntaxCallback("CommentColor", ColorGroup.COMMENT);
-        MakeSyntaxCallback("ImportColor", ColorGroup.IMPORT);
-        MakeSyntaxCallback("StringColor", ColorGroup.STRING);
-        MakeSyntaxCallback("KeywordColor", ColorGroup.KEYWORD);
-        MakeSyntaxCallback("FunctionColor", ColorGroup.FUNCTION_CALL);
-        MakeSyntaxCallback("ConstantColor", ColorGroup.CONSTANT);
-        MakeSyntaxCallback("NumberColor", ColorGroup.NUMBER);
-        MakeSyntaxCallback("BracketColor", ColorGroup.BRACKETS);
-        MakeSyntaxCallback("OperatorColor", ColorGroup.OPERATORS);
-        MakeSyntaxCallback("IdentifierColor", ColorGroup.IDENTIFIERS);
+        Configuration.MakeSyntaxCallback("CommentColor", ColorGroup.Comment);
+        Configuration.MakeSyntaxCallback("ImportColor", ColorGroup.Import);
+        Configuration.MakeSyntaxCallback("StringColor", ColorGroup.String);
+        Configuration.MakeSyntaxCallback("KeywordColor", ColorGroup.Keyword);
+        Configuration.MakeSyntaxCallback("FunctionColor", ColorGroup.FunctionCall);
+        Configuration.MakeSyntaxCallback("ConstantColor", ColorGroup.Constant);
+        Configuration.MakeSyntaxCallback("NumberColor", ColorGroup.Number);
+        Configuration.MakeSyntaxCallback("BracketColor", ColorGroup.Brackets);
+        Configuration.MakeSyntaxCallback("OperatorColor", ColorGroup.Operators);
+        Configuration.MakeSyntaxCallback("IdentifierColor", ColorGroup.Identifiers);
     }
 
-    public static void SetupEnvironmentCallbacks()
+    private static void SetupEnvironmentCallbacks()
     {
-        Settings["SkyColor"].SettingChanged += (caller, args) =>
+        Configuration.Settings["SkyColor"].SettingChanged += (_, _) =>
         {
-            Root.SetSkyColor(Settings["SkyColor"].Value);
+            Root.SetSkyColor(Configuration.Settings["SkyColor"].Value);
         };
 
-        Settings["SunColor"].SettingChanged += (caller, args) =>
+        Configuration.Settings["SunColor"].SettingChanged += (_, _) =>
         {
-            Root.SetSunColor(Settings["SunColor"].Value);
+            Root.SetSunColor(Configuration.Settings["SunColor"].Value);
         };
     }
 
-    public static void SetupCodeWindowCallbacks()
+    private static void SetupCodeWindowCallbacks()
     {
-        MakeWindowCallback("CodeWindowBorderColor");
-        MakeWindowCallback("CodeBackgroundColor");
-        MakeWindowCallback("BreakpointBackgroundColor");
+        Configuration.MakeWindowCallback("CodeWindowBorderColor");
+        Configuration.MakeWindowCallback("CodeBackgroundColor");
+        Configuration.MakeWindowCallback("BreakpointBackgroundColor");
     }
 
-    public static void SetupDocsWindowCallbacks()
+    private static void SetupDocsWindowCallbacks()
     {
-        MakeWindowCallback("DocsWindowBorderColor");
-        MakeWindowCallback("DocsBackgroundColor");
-        MakeWindowCallback("DocsScrollBackgroundColor");
-        MakeWindowCallback("DocsScrollbarColor");
+        Configuration.MakeWindowCallback("DocsWindowBorderColor");
+        Configuration.MakeWindowCallback("DocsBackgroundColor");
+        Configuration.MakeWindowCallback("DocsScrollBackgroundColor");
+        Configuration.MakeWindowCallback("DocsScrollbarColor");
     }
 
     private static void MakeWindowCallback(string v)
     {
-        Settings[v].SettingChanged += (caller, args) => Root.Instance.UpdateWindows();
+        Configuration.Settings[v].SettingChanged += (_,_) => Root.Instance.UpdateWindows();
         
     }
 
@@ -101,9 +101,9 @@ internal class Configuration
 
     private static void MakeSyntaxCallback(string name, Regex re)
     {
-        Settings[name].SettingChanged += (sender, args) =>
+        Configuration.Settings[name].SettingChanged += (_, _) =>
         {
-            ThemeManager.SetColor(re, Settings[name].Value);
+            ThemeManager.SetColor(re, Configuration.Settings[name].Value);
         };
     }
 }
