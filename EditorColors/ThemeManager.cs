@@ -15,7 +15,7 @@ public static class ColorGroup
         Import = new(@"^(import|(from.*import)).*"),
         String = new(@"(['""])(.*?)\1"),
         Keyword = new(@"\b(in|for|while|def|if|else|elif|return|pass|break|continue|and|or|not)\b"),
-        FunctionCall = new(@"\b[a-zA-Z]\w*(?=\()"),
+        FunctionCall = new(@"\b[a-zA-Z_]\w*(?=\()"),
         Constant = new(@"\b(True|False|None|North|East|South|West|Entities|Items|Grounds|Unlocks|Hats|Leaderboards)|(?<=[a-zA-Z]\.)\w*"),
         Number = new(@"\b(\d*\.)?\d+\b"),
         Brackets = new(@"[\[\]{}()]"),
