@@ -12,9 +12,8 @@ public static class ColorGroup
 {
     public static readonly Regex
         Comment = new(@"#.*"),
-        Import = new(@"^(import|(from.*import)).*"),
         String = new(@"(['""])(.*?)\1"),
-        Keyword = new(@"\b(in|for|while|def|if|else|elif|return|pass|break|continue|and|or|not)\b"),
+        Keyword = new(@"\b(in|for|while|def|if|else|elif|return|pass|break|continue|and|or|not|import|from)\b"),
         FunctionCall = new(@"\b[a-zA-Z_]\w*(?=\()"),
         Constant = new(@"\b(True|False|None|North|East|South|West|Entities|Items|Grounds|Unlocks|Hats|Leaderboards)|(?<=[a-zA-Z]\.)\w*"),
         Number = new(@"\b(\d*\.)?\d+\b"),
@@ -28,7 +27,6 @@ public static class ThemeManager
     private static readonly Dictionary<Regex, string> ColorDictionary = new()
     {
         [ColorGroup.Comment] = Configuration.Get("CommentColor"),
-        [ColorGroup.Import] = Configuration.Get("ImportColor"),
         [ColorGroup.String] = Configuration.Get("StringColor"),
         [ColorGroup.Keyword] = Configuration.Get("KeywordColor"),
         [ColorGroup.FunctionCall] = Configuration.Get("FunctionColor"),

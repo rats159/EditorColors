@@ -14,7 +14,6 @@ internal static class Configuration
     public static void Init()
     {
         Configuration.Settings["CommentColor"] = Configuration.Bind("Syntax", "CommentColor", "#999999", "The color of comments");
-        Configuration.Settings["ImportColor"] = Configuration.Bind("Syntax", "ImportColor", "#999999", "The color of imports");
         Configuration.Settings["StringColor"] = Configuration.Bind("Syntax", "StringColor", "#cc8a43", "The color of strings");
         Configuration.Settings["KeywordColor"] = Configuration.Bind("Syntax", "KeywordColor", "#e3a63d", "The color of keywords");
         Configuration.Settings["FunctionColor"] = Configuration.Bind("Syntax", "FunctionColor", "#ffecbd", "The color of functions");
@@ -49,7 +48,6 @@ internal static class Configuration
     private static void SetupSyntaxCallbacks()
     {
         Configuration.MakeSyntaxCallback("CommentColor", ColorGroup.Comment);
-        Configuration.MakeSyntaxCallback("ImportColor", ColorGroup.Import);
         Configuration.MakeSyntaxCallback("StringColor", ColorGroup.String);
         Configuration.MakeSyntaxCallback("KeywordColor", ColorGroup.Keyword);
         Configuration.MakeSyntaxCallback("FunctionColor", ColorGroup.FunctionCall);
