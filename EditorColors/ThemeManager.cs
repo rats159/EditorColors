@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,41 +11,59 @@ namespace EditorColors;
 
 public static class ColorGroup
 {
-    public static readonly Regex
-        Comment = new(@"#.*"),
-        String = new(@"(['""])(.*?)\1"),
-        Keyword = new(@"\b(in|for|while|def|if|else|elif|return|pass|break|continue|and|or|not|import|from)\b"),
-        FunctionCall = new(@"\b[a-zA-Z_]\w*(?=\()"),
-        Constant = new(@"\b(True|False|None|North|East|South|West|Entities|Items|Grounds|Unlocks|Hats|Leaderboards)|(?<=[a-zA-Z]\.)\w*"),
-        Number = new(@"\b(\d*\.)?\d+\b"),
-        Brackets = new(@"[\[\]{}()]"),
-        Operators = new(@"[+\-*%/=!:><,\.]"), 
-        Identifiers = new(@"\b[a-zA-Z]\w*\b");
+    public static readonly string Pattern;
+
+    // Association list because order is important
+    public static readonly AssociationList<string, string> Groups = new()
+    {
+        ["comment"] = "#.*",
+        ["string"] = @"'[^']*'|""[^""]*""",
+        ["keyword"] = @"\b(?:in|for|while|def|if|else|elif|return|pass|break|continue|and|or|not|global|import|from)\b",
+        ["function"] = @"\b[a-zA-Z_]\w*(?=\()",
+        ["constant"] =
+            @"\b(?:True|False|None|North|East|South|West|Entities|Items|Grounds|Unlocks|Leaderboards|Hats)\b|(?<=[a-zA-Z_]\.)\w+",
+        ["number"] = @"\b(?:\d*\.)?\d+\b",
+        ["brackets"] = @"[\[\]{}()]",
+        ["operators"] = @"[+\-*%/=!:><,\.]",
+        ["identifiers"] = @"\b[a-zA-Z]\w*\b"
+    };
+
+    static ColorGroup()
+    {
+        MegaRegex group = new();
+
+        foreach ((string name, string pattern) in ColorGroup.Groups)
+        {
+            group.Add(name, pattern);
+        }
+
+        ColorGroup.Pattern = group.Build();
+    }
 }
 
 public static class ThemeManager
 {
-    private static readonly Dictionary<Regex, string> ColorDictionary = new()
+    public static List<(string, string)> Colors()
     {
-        [ColorGroup.Comment] = Configuration.Get("CommentColor"),
-        [ColorGroup.String] = Configuration.Get("StringColor"),
-        [ColorGroup.Keyword] = Configuration.Get("KeywordColor"),
-        [ColorGroup.FunctionCall] = Configuration.Get("FunctionColor"),
-        [ColorGroup.Constant] = Configuration.Get("ConstantColor"),
-        [ColorGroup.Number] = Configuration.Get("NumberColor"),
-        [ColorGroup.Brackets] = Configuration.Get("BracketColor"),
-        [ColorGroup.Operators] = Configuration.Get("OperatorColor"),
-        [ColorGroup.Identifiers] = Configuration.Get("IdentifierColor")
+        return ThemeManager.ColorDictionary.Select(entry => (entry.Key, entry.Value)).ToList();
+    }
+
+    private static readonly Dictionary<string, string> ColorDictionary = new()
+    {
+        ["comment"] = Configuration.Get("CommentColor"),
+        ["string"] = Configuration.Get("StringColor"),
+        ["keyword"] = Configuration.Get("KeywordColor"),
+        ["function"] = Configuration.Get("FunctionColor"),
+        ["constant"] = Configuration.Get("ConstantColor"),
+        ["number"] = Configuration.Get("NumberColor"),
+        ["brackets"] = Configuration.Get("BracketColor"),
+        ["operators"] = Configuration.Get("OperatorColor"),
+        ["identifiers"] = Configuration.Get("IdentifierColor")
     };
 
-    public static List<(Regex, string)> Colors()
+    public static void SetColor(string name, string hexCode)
     {
-        return ThemeManager.ColorDictionary.Select(entry=>(entry.Key,entry.Value)).ToList();
-    }
-    
-    public static void SetColor(Regex group, string hexCode)
-    {
-        ThemeManager.ColorDictionary[group] = hexCode;
+        ThemeManager.ColorDictionary[name] = hexCode;
     }
 
     public static Color ToColor(string hex)
@@ -71,7 +90,6 @@ public static class ThemeManager
 
     public static void UpdateDocsWindows(DocsWindow[] windows)
     {
-        Root.GetLogger().LogInfo(windows);
         foreach (DocsWindow window in windows)
         {
             ThemeManager.UpdateDocsWindow(window);
@@ -80,22 +98,39 @@ public static class ThemeManager
 
     public static void UpdateDocsWindow(DocsWindow window)
     {
-        window.GetComponent<Image>().color = ThemeManager.ToColor(Configuration.Get("DocsWindowBorderColor"));
+        window.GetComponent<Image>().color = ThemeManager.ToColor(Configuration.Get("BorderColor"));
 
         Transform scrollView = window.transform.Find("Scroll View");
-        scrollView.GetComponent<Image>().color = ThemeManager.ToColor(Configuration.Get("DocsBackgroundColor"));
+        scrollView.GetComponent<Image>().color = ThemeManager.ToColor(Configuration.Get("BackgroundColor"));
 
         Transform vertical = scrollView.Find("Scrollbar Vertical");
-        vertical.GetComponent<Image>().color = ThemeManager.ToColor(Configuration.Get("DocsScrollBackgroundColor"));
+        vertical.GetComponent<Image>().color = ThemeManager.ToColor(Configuration.Get("ScrollBackgroundColor"));
 
-        vertical.Find("Sliding Area/Handle").GetComponent<Image>().color = ThemeManager.ToColor(Configuration.Get("DocsScrollbarColor"));
+        vertical.Find("Sliding Area/Handle").GetComponent<Image>().color =
+            ThemeManager.ToColor(Configuration.Get("ScrollbarColor"));
     }
 
     public static void UpdateCodeWindow(CodeWindow window)
     {
+        if (window == null) return;
 
-        window.GetComponent<Image>().color = ThemeManager.ToColor(Configuration.Get("CodeWindowBorderColor"));
-        window.transform.Find("InputField").GetComponent<Image>().color = ThemeManager.ToColor(Configuration.Get("CodeBackgroundColor"));
-        window.transform.Find("BreakPointPanel").GetComponent<Image>().color = ThemeManager.ToColor(Configuration.Get("BreakpointBackgroundColor"));
+        window.GetComponent<Image>().color = ThemeManager.ToColor(Configuration.Get("BorderColor"));
+        
+        Transform scrollView = window.transform.Find("Scroll View");
+        scrollView.GetComponent<Image>().color =  ThemeManager.ToColor(Configuration.Get("BackgroundColor"));
+        
+        Transform inputField = scrollView.Find("Viewport/InputField");
+        Transform breakpoint = scrollView.Find("Viewport/InputField/BreakPointPanel");
+
+
+        Transform vertical = scrollView.Find("Scrollbar Vertical");
+        vertical.GetComponent<Image>().color = ThemeManager.ToColor(Configuration.Get("ScrollBackgroundColor"));
+        
+        vertical.Find("Sliding Area/Handle").GetComponent<Image>().color =
+            ThemeManager.ToColor(Configuration.Get("ScrollbarColor"));
+        
+        inputField.GetComponent<Image>().color = ThemeManager.ToColor(Configuration.Get("BackgroundColor"));
+        breakpoint.GetComponent<Image>().color =
+            ThemeManager.ToColor(Configuration.Get("BreakpointBackgroundColor"));
     }
 }

@@ -45,7 +45,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssociationList.cs" />
     <Compile Include="Configuration.cs" />
+    <Compile Include="MegaRegex.cs" />
     <Compile Include="Patches\CodeUtilitiesPatch.cs" />
     <Compile Include="Patches\CodeWindowPatch.cs" />
     <Compile Include="Patches\DocsWindowPatch.cs" />

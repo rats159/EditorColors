@@ -7,41 +7,41 @@ using UnityEngine;
 
 namespace EditorColors.Patches;
 
-[HarmonyPatch(typeof(CodeUtilities), nameof(CodeUtilities.SyntaxColor))]
+[HarmonyPatch(typeof(CodeUtilities), nameof(CodeUtilities.SyntaxColor2))]
 internal class CodeUtilitiesPatch
 {
-    public static bool Prefix(ref string __result, string code)
+    public static bool Prefix(ref string __result, string code, string searchWord = "", int searchIndex = -1)
     {
-        string text = code;
-        List<(Capture, string)> captures = [];
+        string regex = String.IsNullOrEmpty(searchWord) ? ColorGroup.Pattern : "(?<search>(?i:" + Regex.Escape(searchWord) + ")(?-i))|" + ColorGroup.Pattern;
 
-        foreach ((Regex regex, string color) in ThemeManager.Colors())
-        {
-            foreach (Match item in regex.Matches(text))
+        __result = Regex.Replace(
+            code,
+            regex,
+            match =>
             {
-                captures.Add((item, color));
+                if (!String.IsNullOrEmpty(searchWord) && match.Groups["search"].Success)
+                {
+                    if (searchIndex >= 0 && match.Index == searchIndex)
+                    {
+                        return "<mark=#ffffff22>" + match.Value + "</mark>";
+                    }
+                    return "<mark=#ffffff11>" + match.Value + "</mark>";
+                }
+                
+                // there was some extra search check here, i don't think it does anything though so i removed it :p
+                // if search is broken, it's this thing's fault
+
+                foreach ((string name, string color) in ThemeManager.Colors())
+                {
+                    if (match.Groups[name].Success)
+                    {
+                        return $"<color={color}>{match.Value}</color>";
+                    }
+                }
+                
+                return match.Value; // No highlight
             }
-        }
-        List<(Capture, string)> list2 = [];
-        RangeSet rangeSet = new();
-
-        foreach ((Capture cap, string str) in captures.OrderBy(m=>m.Item1.Index))
-        {
-            if (rangeSet.AddRange(cap.Index, cap.Length))
-            {
-                list2.Add((cap, str));
-            }
-        }
-
-        list2.Reverse();
-
-        foreach ((Capture cap, string color) in list2)
-        {
-            text = text.Insert(cap.Index + cap.Length, "</color>");
-            text = text.Insert(cap.Index, $"<color={color}>");
-        }
-
-        __result = text;
+        );
         return false;
     }
 }
