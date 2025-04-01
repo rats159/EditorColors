@@ -2,6 +2,7 @@
 ## How to use
 1. Install BepInEx for TFWR ([Tutorial](https://docs.bepinex.dev/articles/user_guide/installation/index.html))
 2. Download from releases
+3. I recommend using [BepInEx Config Manager](https://github.com/BepInEx/BepInEx.ConfigurationManager) to edit the colors in-game
 
 ### Building from source:
 1. Install BepInEx
